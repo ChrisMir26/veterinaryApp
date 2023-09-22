@@ -3,8 +3,10 @@ import { Outlet } from "react-router-dom"
 const Authlayout = () => {
   return (
     <div>
-        <h1 className=''>Authlayout</h1>
+        <main className='container mx-auto md:grid md:grid-cols-2 mt-12 gap-10 p-5 items-center'>
+
         <Outlet/>
+        </main>
     </div>
   )
 }
