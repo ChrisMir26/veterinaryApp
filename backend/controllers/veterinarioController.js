@@ -2,28 +2,35 @@ import { json } from "express";
 import Veterinario from "../models/Veterinario.js";
 import { generateJWT } from "../helpers/generateJWT.js";
 import { v4 as uuidv4 } from "uuid";
-import Patients from "../models/Patients.js";
+import emailRegister from "../helpers/emailRegister.js";
 
 export const register = async (req, res) => {
   // Agrega la palabra clave async aquí
 
-  const { email } = req.body;
+  const { email,name } = req.body;
 
   //USUARIOS DUPLICADOS
   const existeUsuario = await Veterinario.findOne({ email });
 
   if (existeUsuario) {
-    const error = new Error("email already in use");
+    const error = new Error("email already in use"); 
     return res.status(400).json({ msg: error.message });
   }
   try {
     const veterinario = new Veterinario(req.body);
     const veterinarioSaved = await veterinario.save();
 
-    res.json({ msg: `usuario guardado`, veterinarioSaved });
+    //VERIFICAR EMAIL
+    emailRegister({
+      email,
+      name,
+      token:veterinarioSaved.token
+    })
+
+    res.json(veterinarioSaved);
   } catch (error) {
     console.log(error);
-  }
+  } 
 };
 
 export const profile = (req, res) => {
