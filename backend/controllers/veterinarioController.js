@@ -54,7 +54,7 @@ export const confirm = async (req, res) => {
     await usuarioConfirm.save();
     res.json(usuarioConfirm);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 
   console.log(token);

@@ -9,7 +9,7 @@ router
 
 // PUBLIC AREA
     .post("/", register)
-    .get("/confirm/:token", confirm)
+    .get("/verify/:token", confirm)
     .post("/login", authtentication)
     .post("/forget-password",forgetPassword)
     .get("/forget-password/:token", validatePassword)
