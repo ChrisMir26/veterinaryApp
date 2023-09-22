@@ -32,8 +32,7 @@ const emailRegister = async (datos) => {
       text: "Check your account on PVA",
       html: `<p>Hi ${name}! check your account on PVA. </p>
                   <p>Your account is almost ready; you just need to verify the following link:
-                  <a href='http://localhost3000/verify/${token}'>Verify account</a> </p>
-      
+                  <a href='http://localhost:5173/verify/${token}'>Verify account</a> </p>
                   <p>If you haven't created this account, ignore this message</p>
           `,
     });
