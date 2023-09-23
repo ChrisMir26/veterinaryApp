@@ -7,7 +7,7 @@ const Login = () => {
       <div className="">
         <h1 className="text-indigo-600 font-black text-6xl ">
         Log in to your account and manage your {" "}
-          <span className="text-black"> patients</span>
+          <span className="text-black"> patients.</span>
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white ">

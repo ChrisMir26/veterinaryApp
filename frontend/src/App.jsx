@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import VerifyAccount from "./pages/VerifyAccount";
 import ForgotPassword from "./pages/ForgotPassword";
+import newPassword from "./pages/newPassword";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
               <Route index element={<Login/>}/>
               <Route path="sign-up" element={<SignUp/>}/>
               <Route path="forgot-password"  element={<ForgotPassword/>}/>
-              <Route path="verify/:id"  element={<VerifyAccount/>}/>
+              <Route path="forgot-password/:token"  element={<newPassword/>}/>
+              <Route path="verify/:token"  element={<VerifyAccount/>}/>
           </Route>
 
         </Routes>

@@ -7,7 +7,7 @@ const ForgotPassword = () => {
       <div className="">
         <h1 className="text-indigo-600 font-black text-6xl ">
           Recover your access and don't lose your{" "}
-          <span className="text-black"> patients</span>
+          <span className="text-black"> patients. </span>
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white ">

@@ -3,6 +3,7 @@ import Veterinario from "../models/Veterinario.js";
 import { generateJWT } from "../helpers/generateJWT.js";
 import { v4 as uuidv4 } from "uuid";
 import emailRegister from "../helpers/emailRegister.js";
+import recoverPassword from "../helpers/forgotPassword.js";
 
 export const register = async (req, res) => {
   // Agrega la palabra clave async aquí
@@ -52,7 +53,7 @@ export const confirm = async (req, res) => {
     usuarioConfirm.token = null;
     usuarioConfirm.confirm = true;
     await usuarioConfirm.save();
-    res.json(usuarioConfirm);
+    res.json({msg:"User verified"});
   } catch (error) {
     console.log(error.message);
   }
@@ -96,6 +97,9 @@ export const forgetPassword = async (req, res) => {
   try {
     checkEmail.token = uuidv4();
     await checkEmail.save();
+
+    //envia email con instrucciones
+    recoverPassword({email,name:checkEmail.name,token:checkEmail.token})
     console.log(checkEmail);
     res.json({ msg: `enviamos un email con las instrucciones ` });
   } catch (error) {
