@@ -100,8 +100,7 @@ export const forgetPassword = async (req, res) => {
 
     //envia email con instrucciones
     recoverPassword({email,name:checkEmail.name,token:checkEmail.token})
-    console.log(checkEmail);
-    res.json({ msg: `enviamos un email con las instrucciones ` });
+    res.json({ msg: `We have sent an email with the instructions` });
   } catch (error) {
     console.log(error.message);
   }

@@ -1,7 +1,35 @@
+import axios from "axios";
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import Alert from "../components/Alert";
+
+
 
 const ForgotPassword = () => {
+  const [email, setEmail] = useState("")
+  const [alert, setAlert] = useState({msg:"",error:false})
+
+
+  const handleSubmit = async(e) =>{
+    e.preventDefault()
+    const URL = `http://localhost:4000/api/veterinarios/forget-password`
+    try {
+      const {data} = await axios.post(URL,{email})
+
+     console.log(`soy dataAATATAAA`,data)
+
+     setAlert({msg:data.msg})
+      
+
+    } catch (error) {
+      console.log(`soy errrorrrrrr`,error.response.data.msg)
+      setAlert({msg:error.response.data.msg, error:true})
+    }
+  }
+
+
+ const {msg} = alert
   return (
     <>
       <div className="">
@@ -11,7 +39,8 @@ const ForgotPassword = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white ">
-        <form action="">
+        {msg && <Alert alert={alert}/>}
+        <form action="" onSubmit={handleSubmit}>
           <div className="my-5">
             <label
               htmlFor="email"
@@ -22,7 +51,10 @@ const ForgotPassword = () => {
             <input
               type="email"
               placeholder="Email"
-              className="border w-full p-3 mt-2 bg-gray-50 rounded-xl "
+              className="border w-full p-3 mt-2 bg-gray-50 rounded-xl"
+              value={email}
+              onChange={(e)=>{setEmail(e.target.value)}}
+              
             />
           </div>
           <input
