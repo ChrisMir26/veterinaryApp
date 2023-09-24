@@ -4,12 +4,17 @@ import { useState, useEffect } from "react";
 import Alert from "../components/Alert";
 import axios from "axios";
 
+
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [alert, setAlert] = useState("");
+
+  
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

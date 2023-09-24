@@ -1,7 +1,58 @@
-import React from "react";
+import {useState,useEffect}from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth"
+import axios from "axios"
+import Alert from "../components/Alert";
+
 
 const Login = () => {
+ // const {user,setUser} = useAuth()
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+  const [alert,setAlert] = useState({msg:"",error:false})
+  const URL = "http://localhost:4000/api/veterinarios/login"
+
+
+  const submitForm = async (e) =>{
+    e.preventDefault();
+    console.log(email,password)
+    if ([ email, password].includes("")) {
+      console.log(`hola`)
+      return setAlert({
+        msg: "Please fill out all the required fields.",
+        error: true,
+      });
+
+
+    }
+    if (password.length < 8 || password.length > 12) {
+      return setAlert({
+        msg: "Password must be between 8 and 12 characters.",
+        error: true,
+      });
+    }
+
+
+    const verificacionEmail = async () =>{
+
+      try {
+        const {data} = await axios.post(URL,{email,password}) 
+        localStorage.setItem('token', data.token)
+
+      } catch (error) {
+        setAlert({msg:error.response.data.msg,error:true})
+        
+      }
+
+    }
+
+
+
+verificacionEmail()
+  }
+
+
+const {msg} = alert
   return (
     <>
       <div className="">
@@ -11,7 +62,8 @@ const Login = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white ">
-        <form action="">
+        {msg && <Alert alert={alert}/> }
+        <form onSubmit={submitForm}>
           <div className="my-5">
             <label
               htmlFor="email"
@@ -20,9 +72,13 @@ const Login = () => {
               Email
             </label>
             <input
-              type="text"
+              type="email"
               placeholder="Email"
-              className="border w-full p-3 mt-2 bg-gray-50 rounded-xl "
+              className="border w-full p-3 mt-2 bg-gray-50 rounded-xl"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </div>
           <div className="my-5">
@@ -36,6 +92,8 @@ const Login = () => {
               type="password"
               placeholder="Password"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl "
+              onChange={(e)=>{setPassword(e.target.value)}}
+
             />
           </div>
 
