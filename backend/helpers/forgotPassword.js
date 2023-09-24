@@ -32,7 +32,7 @@ const recoverPassword = async (datos) => {
       text: "Recover your password!",
       html: `<p>Hi ${name}! You have requested to reset your password. </p>
                   <p>Follow the next link to generate a new password:
-                  <a href='http://localhost:5173/forgot-password/${token}'>Recover account</a> </p>
+                  <a href='http://localhost:5173/forget-password/${token}'>Recover account</a> </p>
           `,
     });
 

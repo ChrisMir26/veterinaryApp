@@ -112,7 +112,7 @@ export const validatePassword = async (req, res) => {
   const checkToken = await Veterinario.findOne({ token });
   console.log(checkToken);
   if (!checkToken) {
-    const error = new Error("Token not foudn");
+    const error = new Error("Token not found");
     return res.status(404).json({ msg: error.message });
   }
 
@@ -126,7 +126,7 @@ export const newPassword = async (req, res) => {
   const veterinario = await Veterinario.findOne({ token });
 
   if (!veterinario) {
-    const error = new Error(`hubo un error`);
+    const error = new Error(`Vet not found`);
     return res.status(400).json({ msg: error.message });
   }
 
@@ -134,7 +134,7 @@ export const newPassword = async (req, res) => {
     veterinario.token = null;
     veterinario.password = password;
     await veterinario.save();
-    res.json({ msg: "password modificado correctamente" });
+    res.json({ msg: "Password successfully modified" });
   } catch (error) {
     console.log(error.message);
   }
