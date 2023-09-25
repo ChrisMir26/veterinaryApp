@@ -6,7 +6,6 @@ import useAuth from "../hooks/useAuth"
 const Header = () => {
 
   const {logOut,user} = useAuth()
-  console.log(`SOY USER DE HEADER`,user?.data)
 
   return (
     <header className="py-5 bg-indigo-600">
