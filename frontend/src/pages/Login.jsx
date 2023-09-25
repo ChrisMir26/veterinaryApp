@@ -1,5 +1,5 @@
 import {useState,useEffect}from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth"
 import axios from "axios"
 import Alert from "../components/Alert";
@@ -10,12 +10,12 @@ const Login = () => {
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
   const [alert,setAlert] = useState({msg:"",error:false})
+  const navigate = useNavigate()
   const URL = "http://localhost:4000/api/veterinarios/login"
 
 
   const submitForm = async (e) =>{
     e.preventDefault();
-    console.log(email,password)
     if ([ email, password].includes("")) {
       console.log(`hola`)
       return setAlert({
@@ -37,7 +37,9 @@ const Login = () => {
 
       try {
         const {data} = await axios.post(URL,{email,password}) 
+        console.log(data)
         localStorage.setItem('token', data.token)
+        navigate("/admin")
 
       } catch (error) {
         setAlert({msg:error.response.data.msg,error:true})
