@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 export const addPatient = async (req, res) => {
     const patient = new Patients(req.body);
-    patient.vet = req.veterinario._id;
+    patient.vet = req.veterinario?._id;
 
     try {
         const patientSave = await patient.save();

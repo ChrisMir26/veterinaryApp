@@ -1,14 +1,15 @@
 // Importando hooks y funciones necesarias de React.
 import { useState, createContext, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 // Creando un contexto para la autenticación.
 const AuthContext = createContext(); // <-- Crea un Contexto sin valor predeterminado.
-
 // Definiendo un componente proveedor de contexto para la autenticación.
 const AuthProvider = ({ children }) => {
   // <-- `children` son los componentes hijos que estarán envueltos por este Provider.
-
+  const navigate = useNavigate()
   // Inicializando el estado del proveedor con un objeto vacío.
   const [user, setUser] = useState(null); // <-- Estado local para guardar los datos del proveedor.
   const [loading, setLoading] = useState(true); // <-- Estado local para guardar los datos del proveedor.
@@ -35,11 +36,10 @@ const AuthProvider = ({ children }) => {
           config
         );
         setUser({ data });
-        console.log(`soi data de user`, user);
         setLoading(false);
+
       } catch (error) {
         setUser({});
-        console.log(error);
       }
     };
 
@@ -48,9 +48,8 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     localStorage.removeItem("token");
-    console.log("before", user);
     setUser({});
-    console.log("after", user);
+    return navigate("/")
   };
 
   // Retornando el Proveedor de contexto de autenticación envolviendo a los componentes hijos.

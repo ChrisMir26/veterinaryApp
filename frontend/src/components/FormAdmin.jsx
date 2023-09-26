@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import Alert from "./Alert";
+import usePatients from "../hooks/usePatients";
 
 const FormAdmin = () => {
   
@@ -14,7 +15,9 @@ const FormAdmin = () => {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   });
-  console.log(date)
+
+  const {patients,savePatient} = usePatients()
+
 
   const [alert,setAlert] = useState({msg:"",error:false})
   const regex = /^[a-zA-Z]{1,15}$/;
@@ -36,8 +39,9 @@ const FormAdmin = () => {
           }
 
 
-
-        return  setAlert({msg:`All good mate.`,error:false})
+            savePatient({name,owner,email,date,symptoms})
+            console.log(patients)
+        setAlert({msg:`All good mate.`,error:false})
 
         }
 
@@ -146,6 +150,6 @@ const FormAdmin = () => {
       </form>
     </>
   );
-};
+}
 
 export default FormAdmin;

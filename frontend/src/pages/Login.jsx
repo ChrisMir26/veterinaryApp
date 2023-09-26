@@ -42,7 +42,7 @@ const Login = () => {
         navigate("/admin")
 
       } catch (error) {
-        setAlert({msg:error.response.data.msg,error:true})
+        setAlert({msg:error.response.data?.msg,error:true})
         
       }
 
