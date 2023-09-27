@@ -1,5 +1,5 @@
 import express from "express";
-import { register, profile, confirm, authtentication,forgetPassword,validatePassword,newPassword  } from "../controllers/veterinarioController.js";
+import { register, profile, confirm, authtentication,forgetPassword,validatePassword,newPassword,updateProfile  } from "../controllers/veterinarioController.js";
 import { checkAuth } from "../middleware/authMiddleware.js";
 
 const router = express.Router()
@@ -21,10 +21,11 @@ router
 
     // PUBLIC AREA
     .get("/profile",checkAuth, profile)
+    .put("/profile/:id",checkAuth, updateProfile)
 
     
 
-
+ 
 
 
 

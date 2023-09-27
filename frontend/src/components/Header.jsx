@@ -15,8 +15,8 @@ const Header = () => {
           <span className="text-white">veterinary</span>
         </h1>
         <nav className="flex gap-4 my-5 lg:my-0 ">
-            <Link to={"/admind"} className="text-white text-sm uppercase font-bold">Patients</Link>
-            <Link to={"/admind"} className="text-white text-sm uppercase font-bold">Profile</Link>
+            <Link to={"/admin"} className="text-white text-sm uppercase font-bold">Patients</Link>
+            <Link to={"/admin/profile"} className="text-white text-sm uppercase font-bold">Profile</Link>
             <button className="text-white text-sm uppercase font-bold" type="button" onClick={logOut}>
                 Log out
             </button>

@@ -10,7 +10,8 @@ import VerifyAccount from "./pages/VerifyAccount";
 import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import ManagePatients from "./pages/ManagePatients";
-import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   const userToken = localStorage.getItem("USER_TOKEN");
@@ -37,7 +38,8 @@ function App() {
 
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<ManagePatients />} />
-                <Route path="profile" element={<Profile />} />
+                <Route path="profile" element={<EditProfile />} />
+                <Route path="change-password" element={<ChangePassword />} />
               </Route>
             </Routes>
           </PatientsProvider>

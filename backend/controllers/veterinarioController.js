@@ -140,4 +140,38 @@ export const newPassword = async (req, res) => {
   }
 };
 
+export const updateProfile = async (req,res)=>{
+
+  const vet = await Veterinario.findById(req.params.id)
+  if(!vet){
+    const error = new Error("Vet Not Found")
+    return res.status(400).json({msg:error.message})
+  }
+
+  try {
+    const{ email }= req.body
+
+    if(vet.email !== email){
+      const checkEmail =  await Veterinario.findOne({email})
+      if(checkEmail){
+        const error = new Error("Email already in use")
+        return res.status(404).json({msg:error.message})}
+        }
+
+
+      vet.name = req.body.name 
+      vet.email = req.body.email 
+      vet.web = req.body.web 
+      vet.phone = req.body.phone 
+
+      const vetUpdated = await vet.save()
+
+      res.json(vetUpdated)
+
+
+  } catch (error) {
+      console.log(error.response)
+  }
+
+}
 
