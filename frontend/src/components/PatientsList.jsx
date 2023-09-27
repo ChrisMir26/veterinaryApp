@@ -1,4 +1,3 @@
-import React from 'react'
 import usePatients from '../hooks/usePatients'
 import Patients from './Patients'; // Asegúrate de que la ruta sea correcta
 
@@ -6,6 +5,7 @@ import Patients from './Patients'; // Asegúrate de que la ruta sea correcta
 const PatientsList = () => {
 
   const { patients } = usePatients();
+
 
   return (
     <>
