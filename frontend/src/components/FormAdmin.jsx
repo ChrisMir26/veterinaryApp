@@ -1,63 +1,96 @@
-import React,{useState} from "react";
+import React, { useState,useEffect } from "react";
 import Alert from "./Alert";
 import usePatients from "../hooks/usePatients";
 
 const FormAdmin = () => {
-  
-  const [name, setName] = useState("")
-  const [owner, setOwner] = useState("")
-  const [email, setEmail] = useState("")
-  const [symptoms, setSymptoms] = useState("")
+  const [name, setName] = useState("");
+  const [owner, setOwner] = useState("");
+  const [email, setEmail] = useState("");
+  const [symptoms, setSymptoms] = useState("");
   const [date, setDate] = useState(() => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // los meses empiezan desde 0
-    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // los meses empiezan desde 0
+    const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   });
+  const [id, setId] = useState(null);
 
-  const {patients,savePatient} = usePatients()
+
+  const { singlePatient, savePatient } = usePatients();
+
+  useEffect(() => {
+    if (singlePatient?.name) {
+
+      const formattedDate = new Date(singlePatient.date).toISOString().split('T')[0];
+
+      setName(singlePatient.name);
+      setOwner(singlePatient.owner);
+      setEmail(singlePatient.email);      
+      setDate(formattedDate);
+      setSymptoms(singlePatient.symptoms);
+      setId(singlePatient._id);
+    }
+  }, [singlePatient]);
+  
 
 
-  const [alert,setAlert] = useState({msg:"",error:false})
+
+
+  const [alert, setAlert] = useState({ msg: "", error: false });
   const regex = /^[a-zA-Z]{1,15}$/;
 
-        const handleSubmit = async (e) => {
-          e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    if ([name, owner, email, date, symptoms].includes("")) {
+      return setAlert({
+        msg: `Please fill out all the required fields.`,
+        error: true,
+      });
+    }
 
-          if([name,owner,email,date,symptoms].includes("")){
-          return  setAlert({msg:`Please fill out all the required fields.`,error:true})
-          }
-          
-          if(!regex.test(name) || !regex.test(owner)){
-            return setAlert({msg:`Name and Owner maximum of 15 characters, no numbers, and no special symbols`,error:true})
+    if (!regex.test(name) || !regex.test(owner)) {
+      return setAlert({
+        msg: `Name and Owner maximum of 15 characters, no numbers, and no special symbols`,
+        error: true,
+      });
+    }
+    if (symptoms.length < 10 || symptoms.length > 100) {
+      return setAlert({
+        msg: `Symptoms description min 10 characters, max 100`,
+        error: true,
+      });
+    }
 
-          }
-          if(symptoms.length < 10 || symptoms.length > 100){
-            return setAlert({msg:`Symptoms description min 10 characters, max 100`,error:true})
-          }
+    savePatient({ name, owner, email, date, symptoms,id });
+    setName("");
+    setOwner("");
+    setEmail("");
+    setDate("");
+    setSymptoms("");
+    setId("");
+    setAlert({ msg: id ? "Patient updated." : "Patient added.", error: false });
+    setTimeout(() => {
+      setAlert({ msg: ``, error: false });
+    }, 3000);
+  };
 
-
-            savePatient({name,owner,email,date,symptoms})
-            console.log(patients)
-        setAlert({msg:`All good mate.`,error:false})
-
-        }
-
-
-
-
-  const {msg} = alert
+  const { msg } = alert;
   return (
     <>
-      <p className="text-lg text-center mb-10">
-        Add your patients and {""}{" "}
-        <span className="text-indigo-600 font-bold">manage them </span>
+                <h2 className='font-black text-3xl text-center'>Patient Administrato</h2>
+
+      <p className="tet-xl mt-5 mb-10 text-center">
+        Add your patients and{" "}
+        <span className="text-indigo-600 font-bold"> manage them</span>
       </p>
 
-      <form className="bg-white py-10 m-2 md:m-0 px-5 mb-10 lg:mb-0 shadow-md rounded-md" onSubmit={handleSubmit}>
-       {msg &&  <Alert alert={alert}/>}
+      <form
+        className="bg-white py-10 m-2 md:m-0 px-5 mb-10 lg:mb-0 shadow-md rounded-md"
+        onSubmit={handleSubmit}
+      >
+        {msg && <Alert alert={alert} />}
         <div className="mb-5">
           <label htmlFor="pet" className="text-grat-700 uppercase font-bold  ">
             Pet name
@@ -69,8 +102,7 @@ const FormAdmin = () => {
             className="border-2 w-full p-2 mt-2 placeholder-gray-400
                 rounded-md"
             value={name}
-            onChange={e=>setName(e.target.value)}
-
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="mb-5">
@@ -87,9 +119,7 @@ const FormAdmin = () => {
             className="border-2 w-full p-2 mt-2 placeholder-gray-400
                 rounded-md"
             value={owner}
-            onChange={e=>setOwner(e.target.value)}
-
-
+            onChange={(e) => setOwner(e.target.value)}
           />
         </div>
         <div className="mb-5">
@@ -105,9 +135,8 @@ const FormAdmin = () => {
             placeholder="Email"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400
                 rounded-md"
-                value={email}
-            onChange={e=>setEmail(e.target.value)}
-
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-5">
@@ -120,8 +149,7 @@ const FormAdmin = () => {
             className="border-2 w-full p-2 mt-2 placeholder-gray-400
                 rounded-md"
             value={date}
-            onChange={e=>setDate(e.target.value)}
-
+            onChange={(e) => setDate(e.target.value)}
           />
         </div>
         <div className="mb-5">
@@ -136,20 +164,19 @@ const FormAdmin = () => {
             placeholder="Describe symptoms"
             className="border-2 w-full sm:h-10 h-40 p-2 mt-2 placeholder-gray-400 resize-none
                 rounded-md"
-                value={symptoms}
-          onChange={e=>setSymptoms(e.target.value)}
+            value={symptoms}
+            onChange={(e) => setSymptoms(e.target.value)}
           />
-          
         </div>
 
         <input
           type="submit"
-          value="Add patient"
+          value={id ? "Save changes" : "Add patient"}
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-800 cursor-pointer transition-colors"
         />
       </form>
     </>
   );
-}
+};
 
 export default FormAdmin;

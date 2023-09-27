@@ -13,7 +13,7 @@ export const addPatient = async (req, res) => {
 
 export const getPatients = async (req, res) => {
 
-    const patients = await Patients.find().where("vet").equals(req.veterinario._id)
+    const patients = await Patients.find().where("vet").equals(req.veterinario?._id)
 
     res.json(patients)
 
@@ -89,6 +89,7 @@ export const updatePatient = async (req, res) => {
   
     patient.name = req.body.name || patient.name;
     patient.owner = req.body.owner || patient.owner;
+    patient.date = req.body.date || patient.date;
     patient.email = req.body.email || patient.email;
     patient.symptoms = req.body.symptoms || patient.symptoms;
   

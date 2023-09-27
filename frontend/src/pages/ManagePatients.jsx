@@ -10,7 +10,7 @@ const ManagePatients = () => {
       <button
         type="button"
         onClick={() => setShowForm(!showForm)}
-        className="bg-indigo-600 text-white font-bold uppercase mx-10 p-3 rounded-md md:hidden"
+        className="bg-indigo-600 text-white font-bold uppercase mx-10 p-3 rounded-md md:hidden mb-5"
       >
         {showForm ? "Hide form" : "Show form"}
       </button>

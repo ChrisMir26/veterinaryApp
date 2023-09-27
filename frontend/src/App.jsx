@@ -10,7 +10,6 @@ import VerifyAccount from "./pages/VerifyAccount";
 import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import ManagePatients from "./pages/ManagePatients";
-import ProtectedRoute from "./components/ProtectedRoute"; // Importa el componente adecuadamente.
 import Profile from "./pages/Profile";
 
 function App() {
