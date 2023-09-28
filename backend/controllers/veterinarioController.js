@@ -175,3 +175,27 @@ export const updateProfile = async (req,res)=>{
 
 }
 
+export const updatePassword = async (req,res) =>{
+  const {id} = req.veterinario
+  const {currentPassword, newPassword} = req.body
+
+
+  const vet = await Veterinario.findById(id)
+  if(!vet){
+    const error = new Error("Vet Not Found")
+    return res.status(400).json({msg:error.message})
+  }
+ 
+  if(await vet.checkPassword(currentPassword)){
+    vet.password = newPassword
+    await vet.save()
+    res.json({msg:"Password succesfully saved"})
+  }else{
+    const error = new Error("Current password is wrong")
+    return res.status(400).json({msg:error.message})
+  }
+
+
+
+
+}

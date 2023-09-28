@@ -37,7 +37,6 @@ const Login = () => {
 
       try {
         const {data} = await axios.post(URL,{email,password}) 
-        console.log(data)
         localStorage.setItem('token', data.token)
         navigate("/admin")
 

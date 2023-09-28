@@ -1,37 +1,48 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 const PatientsContext = createContext();
 
-export const PatientsProvider = ({ children }) => {
+const PatientsProvider = ({ children }) => {
   const [patients, setPatients] = useState([]);
   const [singlePatient, setSinglePatient] = useState({})
   const URL = "http://localhost:4000/api/patients";
 
-
-  useEffect(() => {
-    const gettingPatient = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) return
-
-          const config = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          };
+const {user,loading} = useAuth()
+const token = localStorage.getItem("token");
 
 
-          const {data} = await axios(URL,config)
-          setPatients(data)
-      } catch (error) {
-        console.log(error);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  const gettingPatient = async () => {
+    try {
+      if (!token){
+        setPatients([])
+        return
       }
-    };
 
-    gettingPatient()
-  }, [patients]);
+      if (token) {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const { data } = await axios(URL, config);
+        setPatients(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  gettingPatient();
+}, [token]);
+
+
 
 
   const savePatient = async ({ name, owner, email, date, symptoms,id }) => {
@@ -128,3 +139,4 @@ export const PatientsProvider = ({ children }) => {
 };
 
 export default PatientsContext;
+export { PatientsProvider }; // <-- Exportación nombrada del componente AuthProvider.

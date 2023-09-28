@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useRef } from "react";
 import { useState } from "react";
 import AdminNav from "../components/AdminNav";
 import useAuth from "../hooks/useAuth";
@@ -6,12 +6,40 @@ import Alert from "../components/Alert";
 
 const EditProfile = () => {
   const { user, updateUser } = useAuth();
-  const [editUser, setEditUser] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+    const isMounted = useRef(true);
+
+
+
+  const [editUser, setEditUser] = useState({
+    name: user?.data?.name || "",
+    email: user?.data?.email || "",
+    web: user?.data?.web || "",
+    phone: user?.data?.phone || "",
+  });
   const [alert, setAlert] = useState({ msg: "", error: true });
 
   useEffect(() => {
-    setEditUser(user.data);
-  }, [user.data]);
+
+    if (user && user.data) {
+      
+        setEditUser({
+            name: user.data.name || "",
+            email: user.data.email || "",
+            web: user.data.web || "",
+            phone: user.data.phone || "",
+        });
+     setIsLoading(false); // establecer isLoading en false cuando los datos del usuario están listos
+     return () => {
+      // La lógica cuando el componente se desmonta
+      isMounted.current = false;
+      setEditUser({});
+    };
+    }
+
+}, [user.data]);
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,16 +93,21 @@ const EditProfile = () => {
   };
 
   const { msg } = alert;
+
+
+  
   return (
     <>
       <AdminNav />
+
+      
 
       <h2 className="font-black text-3xl text-center mt-10">Profile</h2>
       <p className="text-xl mt-5 mb-10 text-center">
         Edit your{" "}
         <span className="text-indigo-600 font-bold">Details here</span>
       </p>
-      <div className="flex justify-center">
+     {isLoading ? ("hola") : ( <div className="flex justify-center">
         <div className="w-full md:w-1/2 bg-white shadow rounded-lg p-5">
           <form onSubmit={handleSubmit}>
             {msg && <Alert alert={alert} />}
@@ -84,7 +117,7 @@ const EditProfile = () => {
                 type="text"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 name="name"
-                value={editUser?.name || " "}
+                value={editUser.name }
                 onChange={(e) =>
                   setEditUser({ ...editUser, [e.target.name]: e.target.value })
                 }
@@ -98,7 +131,7 @@ const EditProfile = () => {
                 type="email"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 name="email"
-                value={editUser?.email || ""}
+                value={editUser.email}
                 onChange={(e) =>
                   setEditUser({ ...editUser, [e.target.name]: e.target.value })
                 }
@@ -112,7 +145,7 @@ const EditProfile = () => {
                 type="text"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 name="web"
-                value={editUser.web || ""}
+                value={editUser.web }
                 onChange={(e) =>
                   setEditUser({ ...editUser, [e.target.name]: e.target.value })
                 }
@@ -126,7 +159,7 @@ const EditProfile = () => {
                 type="text"
                 className="border bg-gray-50 w-full p-2 mt-5 rounded-lg"
                 name="phone"
-                value={editUser.phone || ""}
+                value={editUser.phone }
                 onChange={(e) =>
                   setEditUser({ ...editUser, [e.target.name]: e.target.value })
                 }
@@ -141,7 +174,7 @@ const EditProfile = () => {
             />
           </form>
         </div>
-      </div>
+      </div>)}
     </>
   );
 };

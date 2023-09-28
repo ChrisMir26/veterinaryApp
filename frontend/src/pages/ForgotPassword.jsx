@@ -17,7 +17,6 @@ const ForgotPassword = () => {
     try {
       const {data} = await axios.post(URL,{email})
 
-     console.log(`soy dataAATATAAA`,data)
 
      setAlert({msg:data.msg})
       
