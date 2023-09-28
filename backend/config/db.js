@@ -14,7 +14,7 @@ const conectarDB = async () =>{
     }catch(error){
         console.log(`error: ${error.message}`)
 
-        // Finalizar el programa con un código de estado 1 para indicar un error
+        // Finalizar el programa con un código de estado 1 para indicar un erro
         process.exit(1)
     }
 }
