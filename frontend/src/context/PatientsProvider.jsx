@@ -7,7 +7,7 @@ const PatientsContext = createContext();
 const PatientsProvider = ({ children }) => {
   const [patients, setPatients] = useState([]);
   const [singlePatient, setSinglePatient] = useState({})
-  const URL = "http://localhost:4000/api/patients";
+  const URL = `${import.meta.env.VITE_REACT_APP_CONNECTION_HOST}/api/patients`
 
 const {user,loading} = useAuth()
 const token = localStorage.getItem("token");

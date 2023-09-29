@@ -73,7 +73,7 @@ const AuthProvider = ({ children }) => {
     };
 
     try {
-      const URL = `http://localhost:4000/api/veterinarios/profile/${info._id}`;
+      const URL = `${import.meta.env.VITE_REACT_APP_CONNECTION_HOST}/api/veterinarios/profile/${info._id}`;
       const { data } = await axios.put(URL, info, config);
       return data; // Devuelve la respuesta exitosa del servidor
     } catch (error) {
@@ -108,7 +108,7 @@ const AuthProvider = ({ children }) => {
     };
 
     try {
-      const URL = `http://localhost:4000/api/veterinarios/update-password`;
+      const URL = `${import.meta.env.VITE_REACT_APP_CONNECTION_HOST}/api/veterinarios/update-password`;
       console.log("SOY DATOS", datos);
       const { data } = await axios.put(URL, datos, config);
       console.log(`SOY DATAA`, data);

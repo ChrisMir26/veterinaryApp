@@ -41,7 +41,8 @@ const SignUp = () => {
     // CREATE USER
 
     try {
-      const URL = "http://localhost:4000/api/veterinarios";
+      const URL = `${import.meta.env.VITE_REACT_APP_CONNECTION_HOST}/api/veterinarios`
+      
       await axios.post(URL, { name, email, password });
       setAlert({ msg: "User Created! Check your email", error: false });
 

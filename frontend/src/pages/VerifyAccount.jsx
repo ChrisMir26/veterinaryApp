@@ -17,7 +17,8 @@ const VerifyAccount = () => {
 
     try {
       
-      const URL = `http://localhost:4000/api/veterinarios/verify/${token}`;
+      const URL = `${import.meta.env.VITE_REACT_APP_CONNECTION_HOST}/api/veterinarios/verify/${token}`
+
       const { data } = await axios.get(URL);
       setAccountVerified(true)
       setAlert({msg:data.msg,error:false})

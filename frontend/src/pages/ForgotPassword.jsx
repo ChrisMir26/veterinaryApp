@@ -13,8 +13,10 @@ const ForgotPassword = () => {
 
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    const URL = `http://localhost:4000/api/veterinarios/forget-password`
+    const URL = `${import.meta.env.VITE_REACT_APP_CONNECTION_HOST}/api/veterinarios/forget-password`
+    
     try {
+
       const {data} = await axios.post(URL,{email})
 
 

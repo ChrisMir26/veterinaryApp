@@ -7,7 +7,7 @@ import Alert from "../components/Alert";
 const NewPassword = () => {
   const params = useParams();
   const { token } = params;
-  const URL = `http://localhost:4000/api/veterinarios/forget-password/${token}`;
+  const URL = `${import.meta.env.VITE_REACT_APP_CONNECTION_HOST}/api/veterinarios/forget-password/${token}`;
 
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");

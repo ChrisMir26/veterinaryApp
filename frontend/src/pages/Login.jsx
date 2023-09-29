@@ -11,7 +11,9 @@ const Login = () => {
   const [password,setPassword] = useState("")
   const [alert,setAlert] = useState({msg:"",error:false})
   const navigate = useNavigate()
-  const URL = "http://localhost:4000/api/veterinarios/login"
+  const URL = `${import.meta.env.VITE_REACT_APP_CONNECTION_HOST}/api/veterinarios/login`
+
+  
 
 
   const submitForm = async (e) =>{
