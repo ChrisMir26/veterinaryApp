@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import VerifyAccount from "./pages/VerifyAccount";
 import ForgotPassword from "./pages/ForgotPassword";
-import NewPassword from ".pages/NewPassword/";
+import NewPassword from "./pages/NewPassword/";
 import ManagePatients from "./pages/ManagePatients";
 import EditProfile from "./pages/EditProfile";
 import ChangePassword from "./pages/ChangePassword";
