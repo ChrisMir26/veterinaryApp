@@ -13,39 +13,26 @@ const EditProfile = () => {
 
   const [editUser, setEditUser] = useState({
     name: user?.data?.name || "",
-    email: user?.data?.email || "",
+    email: user?.data?.email || "" ,
     web: user?.data?.web || "",
     phone: user?.data?.phone || "",
+    _id: user?.data?._id
   });
   const [alert, setAlert] = useState({ msg: "", error: true });
 
   useEffect(() => {
 
-    if (user && user.data) {
-      
-        setEditUser({
-            name: user.data.name || "",
-            email: user.data.email || "",
-            web: user.data.web || "",
-            phone: user.data.phone || "",
-        });
-     setIsLoading(false); // establecer isLoading en false cuando los datos del usuario están listos
-     return () => {
-      // La lógica cuando el componente se desmonta
-      isMounted.current = false;
-      setEditUser({});
-    };
-    }
 
 }, [user.data]);
 
-  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const regex = /^[a-zA-Z]{1,15}$/;
     const regexPhone = /^(\d{0,15})?$/;
     const { name, email, phone } = editUser;
+    console.log(`SOY USERRRRRRR`,user)
 
     try {
       if ([name, email].includes("")) {
@@ -107,7 +94,7 @@ const EditProfile = () => {
         Edit your{" "}
         <span className="text-indigo-600 font-bold">Details here</span>
       </p>
-     {isLoading ? ("hola") : ( <div className="flex justify-center">
+     <div className="flex justify-center">
         <div className="w-full md:w-1/2 bg-white shadow rounded-lg p-5">
           <form onSubmit={handleSubmit}>
             {msg && <Alert alert={alert} />}
@@ -174,7 +161,7 @@ const EditProfile = () => {
             />
           </form>
         </div>
-      </div>)}
+      </div>
     </>
   );
 };

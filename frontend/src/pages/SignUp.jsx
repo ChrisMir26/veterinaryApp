@@ -55,7 +55,9 @@ const SignUp = () => {
       }, 3000);
 
     } catch (error) {
-      setAlert({msg:error.response.data.msg, error:true})
+      // setAlert({msg:error.response.data.msg, error:true})
+      console.log(error.response)
+
     }
   };
 

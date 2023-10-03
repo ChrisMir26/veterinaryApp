@@ -34,21 +34,23 @@ const AuthProvider = ({ children }) => {
       };
 
       try {
-        const { data } = await axios.get(
-          "http://localhost:4000/api/veterinarios/profile",
-          config
-        );
+        //const URL = import.meta.env.VITE_REACT_APP_CONNECTION_HOST + '/veterinarios/profile';
+        const URL = `http://localhost:4001/api/veterinarios/profile`
+        const { data } = await axios.get(URL,config);
         if (data) { // Asegurándote de que hay data antes de tratar de establecer el user
           setUser({ data });
+          localStorage.setItem('user', JSON.stringify(data));
+
+
           setLoading(false);
         }
       } catch (error) {
-        setUser({}); // Aquí puede que quieras manejar el error de una manera diferente
+        console.log(error) // Aquí puede que quieras manejar el error de una manera diferente
       }
     };
 
     VerifyUser();
-  }, [user]); // Cambiaste la dependencia a token
+  }, [token,user]); // Cambiaste la dependencia a token
 
 
   const logOut = async (info) => {
@@ -74,6 +76,7 @@ const AuthProvider = ({ children }) => {
 
     try {
       const URL = `${import.meta.env.VITE_REACT_APP_CONNECTION_HOST}/api/veterinarios/profile/${info._id}`;
+      console.log("SOY INFOID",info)
       const { data } = await axios.put(URL, info, config);
       return data; // Devuelve la respuesta exitosa del servidor
     } catch (error) {

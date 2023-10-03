@@ -6,16 +6,17 @@ const Patients = ({ patient }) => {
   const { name, owner, email, date, symptoms, _id } = patient;
   const {editPatient,deletePatient} = usePatients()
   const {user} = useAuth()
-  
 
   const formattedDate = (date) => {
     const newDate = new Date(date);
     return new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(
       newDate
     );
-  };
+  }
 
-  useEffect(()=>{},[user])
+  useEffect(()=>{
+
+  },[])
 
   return (
     <div className="mx-5 my-5 bg-white shadow-md px-5 py-8 rounded-xl">

@@ -6,7 +6,7 @@ import Alert from "../components/Alert";
 
 
 const Login = () => {
- // const {user,setUser} = useAuth()
+  const {user,setUser} = useAuth()
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
   const [alert,setAlert] = useState({msg:"",error:false})
@@ -43,8 +43,9 @@ const Login = () => {
         navigate("/admin")
 
       } catch (error) {
-        setAlert({msg:error.response.data?.msg,error:true})
+         setAlert({msg:error.response.data?.msg,error:true})
         
+        console.log(error)
       }
 
     }

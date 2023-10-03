@@ -4,7 +4,6 @@ import PatientsList from "../components/PatientsList";
 
 const ManagePatients = () => {
   const [showForm, setShowForm] = useState(true);
-
   return (
     <div className="flex flex-col md:flex-row">
       <button

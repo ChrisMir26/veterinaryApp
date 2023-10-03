@@ -40,7 +40,7 @@ useEffect(() => {
   };
 
   gettingPatient();
-}, [token]);
+}, [token, user]);
 
 
 
