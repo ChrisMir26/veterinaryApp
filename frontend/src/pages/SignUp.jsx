@@ -117,7 +117,7 @@ const SignUp = () => {
               Password
             </label>
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
               value={password}
@@ -134,7 +134,7 @@ const SignUp = () => {
               Repeat your password
             </label>
             <input
-              type="text"
+              type="password"
               placeholder="Repeat your password"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl "
               value={repeatPassword}
