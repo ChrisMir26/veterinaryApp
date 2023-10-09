@@ -26,7 +26,7 @@ const recoverPassword = async (datos) => {
   //SEND EMAIL
   try {
     const info = await transport.sendMail({
-      from: "VPA - Veterinary Patient Administrator",
+      from: '"VPA - Veterinary Patient Administrator" <no-reply@tudominio.com>',
       to: email,
       subject: "Recover your password!",
       text: "Recover your password!",
